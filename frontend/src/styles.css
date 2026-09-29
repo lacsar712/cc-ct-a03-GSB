@@ -12,49 +12,105 @@ body {
   margin: 0;
 }
 
-.page {
-  max-width: 960px;
-  margin: 0 auto;
+/* ---------- 登录 ---------- */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1.5rem;
 }
 
-.topbar {
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  margin-top: 0;
+}
+
+.login-card h1 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+/* ---------- 侧栏布局 ---------- */
+
+.app-shell {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+  min-height: 100vh;
 }
 
-.topbar h1 {
-  margin: 0 0 0.25rem;
-}
-
-.topnav {
+.sidebar {
+  width: 220px;
+  flex: 0 0 220px;
+  background: #16233b;
+  color: #dce4f0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
+  flex-direction: column;
+  padding: 1.25rem 0;
 }
 
-.topnav a {
-  color: #1e3a8a;
+.sidebar-brand {
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0 1.1rem 1.1rem;
+  border-bottom: 1px solid #283650;
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 0.75rem;
+}
+
+.sidenav a {
+  color: #c4d0e4;
   text-decoration: none;
-  padding: 0.35rem 0.6rem;
-  border-radius: 6px;
-  background: #e8edf5;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
 }
 
-.topnav a.active {
+.sidenav a:hover {
+  background: #223150;
+}
+
+.sidenav a.active {
   background: #2563eb;
   color: #fff;
 }
 
-.detail-grid {
-  display: grid;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
+.sidebar-foot {
+  margin-top: auto;
+  padding: 0.9rem 1.1rem;
+  border-top: 1px solid #283650;
 }
+
+.sidebar-foot .hint {
+  color: #93a1ba;
+  margin: 0.2rem 0 0.6rem;
+  font-size: 0.85rem;
+}
+
+.readonly-tag {
+  color: #f0b429 !important;
+}
+
+.sidebar-foot button.ghost {
+  width: 100%;
+  background: #223150;
+  color: #dce4f0;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 1.5rem 1.75rem;
+  max-width: 1400px;
+}
+
+/* ---------- 通用组件 ---------- */
 
 .hint {
   color: #5a6478;
@@ -69,11 +125,17 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
+.content > .card:first-child,
+.monitor-card {
+  margin-top: 0;
+}
+
 .toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .form {
@@ -107,9 +169,17 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  filter: brightness(1.05);
+}
+
 button.ghost {
   background: #e8edf5;
   color: #1a2332;
+}
+
+button.danger {
+  background: #dc2626;
 }
 
 .banner.error {
@@ -142,4 +212,236 @@ td {
 .fail {
   color: #b91c1c;
   font-weight: 600;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+/* ---------- 状态徽章 ---------- */
+
+.status-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-processing {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-done {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ---------- 同刀监视台：三块并排 ---------- */
+
+.monitor-search {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.monitor-search input {
+  min-width: 200px;
+}
+
+.monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 1000px) {
+  .monitor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.monitor-col {
+  border: 1px solid #e2e8f2;
+  border-radius: 10px;
+  padding: 0.9rem;
+  background: #fbfcfe;
+  min-height: 200px;
+}
+
+.monitor-col h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.col-count {
+  background: #e2e8f5;
+  color: #33415c;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 0.05rem 0.55rem;
+  font-weight: 600;
+}
+
+.col-open {
+  border-color: #f3d27a;
+  background: #fffdf4;
+}
+
+.col-open .col-count {
+  background: #fde68a;
+  color: #78350f;
+}
+
+.col-history {
+  border-color: #bfe3c9;
+  background: #f7fdf9;
+}
+
+.ok-hint {
+  color: #15803d !important;
+  font-weight: 600;
+}
+
+.trace-item,
+.open-item,
+.history-item {
+  background: #fff;
+  border: 1px solid #e6ebf3;
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.6rem;
+}
+
+.trace-item.trace-rejected {
+  border-color: #f3a3a3;
+  background: #fef5f5;
+}
+
+.trace-item.trace-accepted {
+  border-color: #a7d7b5;
+  background: #f5fdf7;
+}
+
+.trace-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.trace-badge {
+  display: inline-block;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.trace-badge-rejected {
+  background: #dc2626;
+  color: #fff;
+}
+
+.trace-badge-accepted {
+  background: #16a34a;
+  color: #fff;
+}
+
+.trace-time {
+  color: #6b7588;
+  font-size: 0.78rem;
+}
+
+.trace-meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: #41506a;
+}
+
+.trace-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.conflict-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+
+.conflict-caption {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #991b1b;
+}
+
+.conflict-chip {
+  background: #dc2626;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ---------- 红色拒收弹窗（模态，不是页面/路由） ---------- */
+
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 26, 40, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.reject-modal {
+  background: #fff;
+  border-top: 6px solid #dc2626;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(153, 27, 27, 0.35);
+  max-width: 480px;
+  width: 100%;
+  padding: 1.4rem 1.5rem 1.25rem;
+}
+
+.reject-modal h2 {
+  margin: 0 0 0.6rem;
+  color: #b91c1c;
+  font-size: 1.2rem;
+}
+
+.reject-line {
+  margin: 0 0 0.4rem;
+}
+
+.reject-detail {
+  color: #6b7588;
+  font-size: 0.88rem;
+  margin: 0.6rem 0 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
 }

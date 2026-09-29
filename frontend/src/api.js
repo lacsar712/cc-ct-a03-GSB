@@ -34,7 +34,12 @@ async function request(path, options = {}) {
   }
   if (!res.ok) {
     const msg = data?.detail || data?.message || `请求失败 (${res.status})`;
-    throw new Error(typeof msg === "string" ? msg : JSON.stringify(msg));
+    const err = new Error(typeof msg === "string" ? msg : JSON.stringify(msg));
+    err.status = res.status;
+    // 同刀拒收时后端点名冲突编号，供红色弹窗展示
+    err.tool_code = data?.tool_code || "";
+    err.conflict_ids = Array.isArray(data?.conflict_ids) ? data.conflict_ids : [];
+    throw err;
   }
   return data;
 }
@@ -59,4 +64,8 @@ export function createSubmission(tool_code, offset_um) {
     method: "POST",
     body: JSON.stringify({ tool_code, offset_um: Number(offset_um) }),
   });
+}
+
+export function fetchToolMonitor(tool_code) {
+  return request(`/monitor?tool_code=${encodeURIComponent(tool_code)}`);
 }
