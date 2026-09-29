@@ -143,3 +143,324 @@ td {
   color: #b91c1c;
   font-weight: 600;
 }
+
+/* ---------- 侧栏布局 ---------- */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex: 0 0 220px;
+  background: #10233f;
+  color: #dbe6f5;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-brand {
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0 1.25rem 1rem;
+  border-bottom: 1px solid #20375c;
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 0.75rem;
+}
+
+.sidenav a {
+  color: #c6d6ee;
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.sidenav a:hover {
+  background: #1b3157;
+}
+
+.sidenav a.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.sidebar-foot {
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #20375c;
+  font-size: 0.88rem;
+}
+
+.sidebar-foot .hint {
+  color: #8fa6c9;
+}
+
+button.block {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 1.5rem 2rem;
+  max-width: 1400px;
+}
+
+.login-title {
+  margin-top: 0;
+}
+
+/* ---------- 同刀监视台三块并排 ---------- */
+.monitor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.three-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.col h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.lock-list,
+.row-list,
+.trace-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lock-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fef3f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-weight: 600;
+}
+
+.lock-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #dc2626;
+  display: inline-block;
+}
+
+.lock-note {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: #b4554c;
+}
+
+.filter-tag {
+  margin-top: 0.75rem;
+}
+
+.row-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border: 1px solid #e5e9f0;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+}
+
+.row-list.compact li {
+  padding: 0.4rem 0.6rem;
+}
+
+.row-line {
+  font-size: 0.9rem;
+}
+
+.badge {
+  font-size: 0.78rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge.pending {
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fde68a;
+}
+
+.badge.processing {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.trace-title {
+  margin: 1.1rem 0 0.5rem;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.trace-book {
+  margin-top: 1rem;
+}
+
+.trace-book .trace-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.6rem;
+}
+
+.trace {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.6rem;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  border: 1px solid #e5e9f0;
+}
+
+.trace.accept {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.trace.reject {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.trace-action {
+  font-weight: 700;
+}
+
+.trace.accept .trace-action {
+  color: #15803d;
+}
+
+.trace.reject .trace-action {
+  color: #b91c1c;
+}
+
+.trace-meta {
+  font-weight: 600;
+}
+
+.trace-conflict {
+  grid-column: 1 / -1;
+  color: #991b1b;
+}
+
+.trace-time {
+  grid-column: 1 / -1;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.inline-error {
+  color: #b91c1c;
+  margin: 0.5rem 0 0;
+}
+
+/* ---------- 红色拒收弹窗（弹窗不是台） ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.reject-modal {
+  border-top: 6px solid #dc2626;
+}
+
+.reject-modal h2 {
+  margin: 0 0 0.75rem;
+  color: #b91c1c;
+}
+
+.modal-line {
+  margin: 0 0 0.5rem;
+}
+
+.modal-sub {
+  margin: 0.75rem 0 0.4rem;
+  font-weight: 600;
+}
+
+.conflict-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.conflict-tag {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+
+.modal-detail {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0.9rem 0 1.1rem;
+}
+
+button.danger {
+  background: #dc2626;
+  width: 100%;
+}
+
+@media (max-width: 1080px) {
+  .three-cols {
+    grid-template-columns: 1fr;
+  }
+}

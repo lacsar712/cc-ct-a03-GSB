@@ -20,6 +20,15 @@ export function clearSession() {
   localStorage.removeItem(USER_KEY);
 }
 
+class ApiError extends Error {
+  constructor(message, status, data) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.data = data || null;
+  }
+}
+
 async function request(path, options = {}) {
   const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
   const token = getToken();
@@ -34,7 +43,7 @@ async function request(path, options = {}) {
   }
   if (!res.ok) {
     const msg = data?.detail || data?.message || `请求失败 (${res.status})`;
-    throw new Error(typeof msg === "string" ? msg : JSON.stringify(msg));
+    throw new ApiError(typeof msg === "string" ? msg : JSON.stringify(msg), res.status, data);
   }
   return data;
 }
@@ -59,4 +68,14 @@ export function createSubmission(tool_code, offset_um) {
     method: "POST",
     body: JSON.stringify({ tool_code, offset_um: Number(offset_um) }),
   });
+}
+
+export function fetchMonitor(toolCode) {
+  const q = toolCode ? `?tool_code=${encodeURIComponent(toolCode)}` : "";
+  return request(`/monitor${q}`);
+}
+
+export function fetchTraces(toolCode) {
+  const q = toolCode ? `?tool_code=${encodeURIComponent(toolCode)}` : "";
+  return request(`/traces${q}`);
 }

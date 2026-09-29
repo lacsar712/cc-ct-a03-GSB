@@ -21,7 +21,7 @@ def claim_one_pending():
     from django.db import transaction
 
     from desk.models import OffsetSubmission
-    from desk.services import apply_verdict
+    from desk.services import apply_verdict, hold_in_processing
 
     with transaction.atomic():
         submission = (
@@ -36,6 +36,8 @@ def claim_one_pending():
         submission.status = OffsetSubmission.Status.PROCESSING
         submission.save(update_fields=["status"])
 
+    # 在「审中」区停留片刻：此状态仍算在途，同刀再开照样拦截。
+    hold_in_processing()
     apply_verdict(submission)
     return True
 

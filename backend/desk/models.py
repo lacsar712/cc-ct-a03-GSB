@@ -57,3 +57,38 @@ class OffsetSubmission(models.Model):
 
     def __str__(self) -> str:
         return f"{self.tool_code} {self.offset_um}µm"
+
+
+class TraceLog(models.Model):
+    """同刀开单痕迹簿：放行（accept）与拒收（reject）各记一笔，可按刀号回看。"""
+
+    class Action(models.TextChoices):
+        ACCEPTED = "accepted", "放行"
+        REJECTED = "rejected", "拒收"
+
+    action = models.CharField(max_length=16, choices=Action.choices, db_index=True)
+    tool_code = models.CharField(max_length=32, db_index=True)
+    offset_um = models.IntegerField(null=True, blank=True)
+    conflict_ids = models.JSONField(default=list, blank=True)
+    submission = models.ForeignKey(
+        OffsetSubmission,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="traces",
+    )
+    acted_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="traces",
+    )
+    detail = models.CharField(max_length=255, blank=True, default="")
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.get_action_display()} {self.tool_code}"
